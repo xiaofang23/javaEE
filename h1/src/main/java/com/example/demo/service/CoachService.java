@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Coach;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 
@@ -11,5 +10,9 @@ public interface CoachService {
 
     Coach getCustomerByNameAndPassword(String username, String password);
 
-    void signUp(Coach customer);
+    void signUp(Coach coach);
+
+    void save(Coach coach);
+
+    Coach getById(Integer id);
 }

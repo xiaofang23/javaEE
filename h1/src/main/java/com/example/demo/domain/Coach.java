@@ -1,17 +1,17 @@
 package com.example.demo.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = Coach.COACH)
-public class Coach {
+public class Coach  implements Serializable {
 
     /**
      *
@@ -34,7 +34,21 @@ public class Coach {
 
     @NotEmpty(message = "Address is required.")
     private String address;
-    
+
+    /*@ManyToMany(mappedBy = "coachs",fetch = FetchType.EAGER)
+    private Set<Customer> customers;*/
+
+    @OneToMany(mappedBy = "coach", cascade = CascadeType.ALL)
+    private List<Course> courses;
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
     /**
      * @return the coach_id
      */
@@ -104,4 +118,37 @@ public class Coach {
     public void setAddress(String address) {
         this.address = address;
     }
-}   
+
+    /*public Set<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(Set<Customer> customers) {
+        this.customers = customers;
+    }*/
+
+    @Override
+    public String toString() {
+        return "Coach{" +
+                "coach_id=" + coach_id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", mobileNum='" + mobileNum + '\'' +
+                ", address='" + address + '\'' +
+               // ", students=" + customers.size() +
+                '}';
+    }
+    public Coach(){super();}
+
+    public Coach(@NotEmpty(message = "User Name is required.") String username,
+                 @Size(min = 6, max = 20, message = "Password must more than 6  chars and less 20 chars") String password,
+                 @Size(min = 11, max = 11, message = "Mobile no. must be 11 digits.") String mobileNum,
+                 @NotEmpty(message = "Address is required.") String address) {
+        this.username = username;
+        this.password = password;
+        this.mobileNum = mobileNum;
+        this.address = address;
+        //this.customers = new HashSet<>();
+        this.courses = new ArrayList<>();
+    }
+}
