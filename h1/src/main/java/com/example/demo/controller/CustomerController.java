@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.domain.Customer;
-import com.example.demo.service.CustomerService;
+import com.example.demo.domain.primary.Customer;
+import com.example.demo.service.primary.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

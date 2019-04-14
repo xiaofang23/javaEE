@@ -1,14 +1,13 @@
 package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.domain.Coach;
-import com.example.demo.domain.Course;
-import com.example.demo.domain.Customer;
-import com.example.demo.repository.CustomerRepository;
-import com.example.demo.service.CoachService;
-import com.example.demo.service.CourseService;
-import com.example.demo.service.CustomerService;
-import com.example.demo.utils.Util;
+import com.example.demo.domain.primary.Coach;
+import com.example.demo.domain.primary.Course;
+import com.example.demo.domain.secondary.ViewLog;
+import com.example.demo.repository.secondary.ViewRepository;
+import com.example.demo.service.primary.CoachService;
+import com.example.demo.service.primary.CourseService;
+import com.example.demo.service.primary.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -17,12 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Set;
+import java.util.Optional;
 
 @Controller
 public class CoachController {
@@ -109,5 +107,22 @@ public class CoachController {
         System.out.println(Arrays.asList(courses));
         return JSON.toJSONString(courses);
     }
+
+    @Autowired
+    ViewRepository viewRepository;
+
+    @RequestMapping(value = "view")
+    @ResponseBody
+    public String viewlog(){
+
+        Date d = new Date();
+        ViewLog viewLog = new ViewLog(4,5);
+
+        viewRepository.save(viewLog);
+        ViewLog viewLog1 = viewRepository.findById(3).get();
+        return JSON.toJSONString(viewLog1);
+    }
+
+
 
 }
