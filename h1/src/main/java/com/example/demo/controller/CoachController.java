@@ -8,6 +8,8 @@ import com.example.demo.repository.secondary.ViewRepository;
 import com.example.demo.service.primary.CoachService;
 import com.example.demo.service.primary.CourseService;
 import com.example.demo.service.primary.CustomerService;
+import com.example.demo.service.primary.RedisService;
+import com.example.demo.utils.SerializeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -18,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Optional;
 
 @Controller
 public class CoachController {
@@ -90,10 +90,11 @@ public class CoachController {
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     @ResponseBody
     public String find(){
-        Course course = courseService.findByName("course---1");
 
-        String s1 = JSON.toJSONString(course.getCoach());
-        String s2 = JSON.toJSONString(course.getCustomers());
+        Course  course = courseService.findByName("course---1");
+        System.out.println(course.toString());
+        String s1 = course.getCoach().toString();
+        String s2 = course.getCustomers().toString();
         return s1+"</br>"+s2;
     }
 

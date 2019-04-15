@@ -2,7 +2,10 @@ package com.example.demo.service.primary;
 
 import com.example.demo.domain.primary.Course;
 import com.example.demo.repository.primary.CourseRepositroy;
+import org.hibernate.annotations.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
@@ -26,6 +29,7 @@ public class CourseServiceImp implements CourseService {
     }
 
     @Override
+    @Cacheable(value="c_course")
     public Course findByName(String s) {
         return courseRepositroy.findByName(s);
     }

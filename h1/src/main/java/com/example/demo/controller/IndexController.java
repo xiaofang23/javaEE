@@ -12,4 +12,14 @@ public class IndexController {
     }
 
 
+    @RequestMapping(value="/signInPage")
+    public String signPage(){
+        return "contact.html";
+    }
+
+    @RequestMapping(value="/signUpPage")
+    public String signUp(){
+        return "signup.html";
+    }
+
 }

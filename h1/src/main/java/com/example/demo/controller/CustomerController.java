@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CustomerController {
@@ -16,8 +15,7 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @RequestMapping(value = "/customersignup", method = RequestMethod.POST)
-    @ResponseBody
+    @RequestMapping(value = "/customerSignUp", method = RequestMethod.POST)
     public String signUp(@RequestParam String username, @RequestParam String password, @RequestParam String mobileNum,
                          @RequestParam String address) {
         Customer c = new Customer();
@@ -26,14 +24,13 @@ public class CustomerController {
         c.setPassword(password);
         c.setUsername(username);
         customerService.signUp(c);
-        return JSON.toJSONString(c);
+        return "contact.html";
     }
 
-    @RequestMapping(value = "/customersignin", method = RequestMethod.POST)
-    @ResponseBody
+    @RequestMapping(value = "/customerSignIn", method = RequestMethod.POST)
     public String singIn(@RequestParam String username, @RequestParam String password) {
         Customer c = customerService.login(username, password);
-        return JSON.toJSONString(c);
+        return "index.html";
     }
 
 }

@@ -61,4 +61,14 @@ public class ViewLog{
     }
 
     public ViewLog(){};
+
+    @Override
+    public String toString() {
+        return "ViewLog{" +
+                "viewlog_id=" + viewlog_id +
+                ", customer_id=" + customer_id +
+                ", course_id=" + course_id +
+                ", createTime=" + createTime +
+                '}';
+    }
 }

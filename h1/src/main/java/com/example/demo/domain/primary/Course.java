@@ -2,12 +2,13 @@ package com.example.demo.domain.primary;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = Course.COURSE)
-public class Course {
+public class Course implements Serializable {
 
     static final String COURSE = "course";
 
@@ -75,5 +76,15 @@ public class Course {
         this.coursename = coursename;
         this.coach = new Coach();
         this.customers = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "course_id=" + course_id +
+                ", coursename='" + coursename + '\'' +
+                ", coach=" + coach +
+                ", customers=" + customers.size() +
+                '}';
     }
 }
