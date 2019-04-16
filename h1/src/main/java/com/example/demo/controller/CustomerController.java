@@ -1,10 +1,10 @@
 package com.example.demo.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.example.demo.domain.primary.Customer;
 import com.example.demo.service.primary.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,8 +28,9 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/customerSignIn", method = RequestMethod.POST)
-    public String singIn(@RequestParam String username, @RequestParam String password) {
+    public String singIn(@RequestParam String username, @RequestParam String password, Model model) {
         Customer c = customerService.login(username, password);
+        model.addAttribute("user",c);
         return "index.html";
     }
 
