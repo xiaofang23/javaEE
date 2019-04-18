@@ -5,8 +5,10 @@ import com.example.demo.repository.primary.CoachRepository;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -45,6 +47,12 @@ public class CoachServiceImp implements CoachService {
     public Coach getById(Integer id) {
         Optional<Coach> coach = coachRepository.findById(id);
         return coach.get();
+    }
+
+    @Override
+    @Cacheable(value = "Coachs'")
+    public List<Coach> getRecomCoach() {
+        return coachRepository.getRecomCoach();
     }
 
 

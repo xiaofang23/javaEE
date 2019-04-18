@@ -13,6 +13,7 @@ import com.example.demo.utils.SerializeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
 import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class CoachController {
@@ -34,18 +36,27 @@ public class CoachController {
     @Autowired
     CourseService courseService;
 
-    @RequestMapping(value = "/coach_signup", method = RequestMethod.POST)
-    @ResponseBody
+    @RequestMapping(value="/trainerPage")
+    public String trainer(Model model){
+        List<Coach> coachList= coachService.getRecomCoach();
+        model.addAttribute("coachs",coachList);
+        return "trainers.html";
+    }
+
+    @RequestMapping(value = "/coachSignUp", method = RequestMethod.POST)
     public String signUp(@RequestParam("username") String username, @RequestParam("password") String password,
-                         @RequestParam("mobileNum") String mobileNum, @RequestParam("address") String address) {
+                         @RequestParam("mobileNum") String mobileNum, @RequestParam("address") String address,
+                         @RequestParam("specialties") String specialties,@RequestParam("motto") String motto) {
         System.out.println("---------------------------------------------->");
         Coach c = new Coach();
         c.setAddress(address);
         c.setMobileNum(mobileNum);
         c.setPassword(password);
         c.setUsername(username);
+        c.setSpecialties(specialties);
+        c.setMotto(motto);
         coachService.signUp(c);
-        return JSON.toJSONString(c);
+        return "contact.html";
     }
 
     @RequestMapping(value = "/coach_signin", method = RequestMethod.POST)

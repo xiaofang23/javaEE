@@ -50,17 +50,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <h1><a class="navbar-brand" href="/home"><img src="images/e.png"/> XiFoo Gym</a></h1>
+            <h1><a class="navbar-brand" href="index.html"><img src="images/e.png"/> XiFoo Gym</a></h1>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right wow fadeInRight animated animated" data-wow-delay="0.4s">
-                <li class="active"><a class="nav-in" href="/home"><span data-letters="Home">Home</span></a></li>
+                <li class="active"><a class="nav-in" href="index.html"><span data-letters="Home">Home</span></a></li>
                 <!--<li><a class="nav-in" href="about.html"><span data-letters="About">About</span></a></li>
                 <li><a class="nav-in" href="class.html"><span data-letters="Classes">Classes</span></a></li>
                 <li><a class="nav-in" href="trainers.html"><span data-letters="Trainers">Trainers</span></a></li>
                 <li><a class="nav-in" href="codes.html"><span data-letters="Codes">Codes</span></a></li>-->
-                <li><a class="nav-in" href="/trainerPage"><span data-letters="Trainers">Trainers</span></a></li>
-                <li><a class="nav-in" href="/signInPage"><span data-letters="Contact">Contact</span></a></li>
+                <li><a class="nav-in" href="contact.html"><span data-letters="Contact">Contact</span></a></li>
 
             </ul>
         </div><!--/.nav-collapse -->
@@ -78,11 +77,13 @@
     </div>
     <div class="map-grids w3-agile">
         <div class=" map-middle wow fadeInRight animated animated" data-wow-delay="0.4s">
-            <form action="customerSignUp" method="post">
+            <form action="coachSignUp" method="post">
                 <input type="text" name="username" placeholder="Name" required="">
                 <input type="password" name="password" class="email" placeholder="PassWord" required="">
                 <input type="text" name="mobileNum" placeholder="mobileNo" required="">
                 <input type="text" name="address" placeholder="address" required="">
+                <input type="text" name="specialties" placeholder="specialties,please split by ," required="">
+                <textarea type="text" name="motto" placeholder="motto" required=""></textarea>
                 <input type="submit" value="Signup">
             </form>
             <div class="signin">
