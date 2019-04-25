@@ -1,11 +1,14 @@
 package com.example.demo.service.primary;
 
 import com.example.demo.domain.primary.Coach;
+import com.example.demo.domain.primary.Course;
 import com.example.demo.repository.primary.CoachRepository;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -55,5 +58,11 @@ public class CoachServiceImp implements CoachService {
         return coachRepository.getRecomCoach();
     }
 
+    @Override
+    public Page<Coach> getCourses(int pageNumber, int pageSize) {
+        PageRequest request = PageRequest.of(pageNumber,pageSize);
+        Page<Coach> coursess= this.coachRepository.findAll(request);
+        return coursess;
+    }
 
 }

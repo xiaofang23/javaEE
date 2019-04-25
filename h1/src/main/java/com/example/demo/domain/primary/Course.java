@@ -16,8 +16,14 @@ public class Course implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer course_id;
 
+
+    private int price;
+
+
     @NotEmpty(message = "User Name is required.")
     private String coursename;
+
+
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "coach_id")
@@ -71,10 +77,19 @@ public class Course implements Serializable {
         this.customers = customers;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     public Course(){};
-    public Course(String coursename) {
+    public Course(String coursename,int price) {
         this.coursename = coursename;
         this.coach = new Coach();
+        this.price = price;
         this.customers = new ArrayList<>();
     }
 
@@ -82,6 +97,7 @@ public class Course implements Serializable {
     public String toString() {
         return "Course{" +
                 "course_id=" + course_id +
+                "price=" + price +
                 ", coursename='" + coursename + '\'' +
                 ", coach=" + coach +
                 ", customers=" + customers.size() +

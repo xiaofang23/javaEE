@@ -75,7 +75,7 @@
                 <li><a class="nav-in" href="codes.html"><span data-letters="Codes">Codes</span></a></li>-->
                 <li><a class="nav-in" href="/trainerPage"><span data-letters="Trainers">Trainers</span></a></li>
                 <li><a class="nav-in" href="/signInPage" th:if="${user==null}"><span data-letters="SignIn">SignIn</span></a></li>
-                <li><a class="nav-in" href="/home" th:if="${user!=null}"><span class="username" th:text="${user.username}"></span></a></li>
+                <li><a class="nav-in" href="/info" th:if="${user!=null}"><span class="username" th:text="${user.username}"></span></a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

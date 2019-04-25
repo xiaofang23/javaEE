@@ -43,11 +43,20 @@ public class CoachController {
         return "trainers.html";
     }
 
+    @RequestMapping(value = "/refreshTrainer")
+    public String trainers(Model model,
+                             @RequestParam(value = "page", defaultValue = "0") Integer pageNo,
+                             @RequestParam(value = "size", defaultValue = "9") Integer size)
+    {
+        Page<Coach> courses = this.coachService.getCourses(pageNo, size);
+        model.addAttribute("coachs",courses.getContent());
+        return "trainers.html";
+    }
+
     @RequestMapping(value = "/coachSignUp", method = RequestMethod.POST)
     public String signUp(@RequestParam("username") String username, @RequestParam("password") String password,
                          @RequestParam("mobileNum") String mobileNum, @RequestParam("address") String address,
                          @RequestParam("specialties") String specialties,@RequestParam("motto") String motto) {
-        System.out.println("---------------------------------------------->");
         Coach c = new Coach();
         c.setAddress(address);
         c.setMobileNum(mobileNum);
@@ -59,12 +68,12 @@ public class CoachController {
         return "contact.html";
     }
 
-    @RequestMapping(value = "/coach_signin", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/coach_signin", method = RequestMethod.POST)
     @ResponseBody
     public String singIn(@RequestParam String username, @RequestParam String password) {
         Coach c = coachService.login(username, password);
         return JSON.toJSONString(c);
-    }
+    }*/
 
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -75,7 +84,7 @@ public class CoachController {
         for(int i=8;i<13;i++) {
 
             Coach coach = coachService.getById(i);
-            Course course = new Course("course-----------"+i+5);
+            Course course = new Course("course-----------"+i+5,123);
             course.setCoach(coach);
             //Coach coach = new Coach("xifoo------"+i, "123456", "18801292026", "BJTU");
 
@@ -98,7 +107,7 @@ public class CoachController {
         return JSON.toJSONString(12342567);
     }
 
-    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/find", method = RequestMethod.GET)
     @ResponseBody
     public String find(){
 
@@ -133,7 +142,7 @@ public class CoachController {
         viewRepository.save(viewLog);
         ViewLog viewLog1 = viewRepository.findById(3).get();
         return JSON.toJSONString(viewLog1);
-    }
+    }*/
 
 
 
