@@ -17,6 +17,11 @@ public class IndexController {
         return "index.html";
     }
 
+    @RequestMapping(value = "*")
+    public String all() {
+        return "forward:/home";
+    }
+
     @RequestMapping(value = "/coach")
     public String coach() {
         return "signupforcoach.html";
@@ -32,15 +37,6 @@ public class IndexController {
         return "signup.html";
     }
 
-    @ExceptionHandler(value = Exception.class)//指定拦截的异常
-    @ResponseBody
-    public Object errorHandler(HttpServletRequest request, HttpServletResponse response, Exception e) throws Exception{
-        e.printStackTrace();//打印异常信息
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("exception",e);
-        mv.addObject("url",request.getRequestURL());//发生异常的路径
-        return JSON.toJSONString(mv);
-    }
     @RequestMapping(value = "/info")
     public String person(HttpServletRequest request,Model model) {
         if(request.getSession().getAttribute("user")==null)
@@ -49,6 +45,7 @@ public class IndexController {
         model.addAttribute("user",request.getSession().getAttribute("user"));
         return "userInfo.html";
     }
+
     @RequestMapping(value = "/modefiedInfo")
     public String modifiedInfo(HttpServletRequest request,Model model) {
         if(request.getSession().getAttribute("user")==null)

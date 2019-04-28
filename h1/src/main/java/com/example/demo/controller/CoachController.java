@@ -75,19 +75,14 @@ public class CoachController {
         return JSON.toJSONString(c);
     }*/
 
-
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     @ResponseBody
     public String test() throws InterruptedException {
-
-
         for(int i=8;i<13;i++) {
-
             Coach coach = coachService.getById(i);
             Course course = new Course("course-----------"+i+5,123);
             course.setCoach(coach);
             //Coach coach = new Coach("xifoo------"+i, "123456", "18801292026", "BJTU");
-
         /*Customer customer = new Customer("cifoo","123456","18801292026","BJTU");
         Customer customer1 = new Customer("cifoo1","123456","18801292026","BJTU");
 
