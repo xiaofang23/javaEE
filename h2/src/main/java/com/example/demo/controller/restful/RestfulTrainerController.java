@@ -1,6 +1,9 @@
 package com.example.demo.controller.restful;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -39,17 +42,25 @@ public class RestfulTrainerController {
 	
 	@RequestMapping(value = "/list", method= RequestMethod.GET, produces = "application/json")
 	@PreAuthorize("hasRole('ROLE_PRODUCT_ADMIN')")
-    public Iterable<Trainer> list(Model model){
+    public ResponseEntity<Iterable<Trainer>> list(Model model){
 		Iterable<Trainer> Trainerlist = TrainerService.getAllTrainer();
-        return Trainerlist;
+		//http缓存
+		CacheControl cacheControl = CacheControl.maxAge(30, TimeUnit.MINUTES);
+		return ResponseEntity.ok()
+		           .cacheControl(cacheControl)
+		           .body(Trainerlist);
     }
 	
 	@ApiOperation(value = "Search a trainer with an ID",response = Trainer.class)
 	@PreAuthorize("hasRole('ROLE_PRODUCT_ADMIN')")
 	@RequestMapping(value = "/show/{id}", method= RequestMethod.GET, produces = "application/json")
-    public Trainer showProduct(@PathVariable Integer id, Model model){
-		Trainer Trainer = TrainerService.getById(id);
-        return Trainer;
+    public ResponseEntity<Trainer> showProduct(@PathVariable Integer id, Model model){
+		Trainer trainer = TrainerService.getById(id);
+		//http缓存
+		CacheControl cacheControl = CacheControl.maxAge(30, TimeUnit.MINUTES);
+		return ResponseEntity.ok()
+		           .cacheControl(cacheControl)
+		           .body(trainer);
     }
 	
 	@ApiOperation(value = "Add a trainer")
