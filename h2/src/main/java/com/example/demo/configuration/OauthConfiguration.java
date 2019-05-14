@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -21,6 +22,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+@EnableResourceServer
 @Configuration
 public class OauthConfiguration extends ResourceServerConfigurerAdapter{
 
@@ -40,22 +42,21 @@ public class OauthConfiguration extends ResourceServerConfigurerAdapter{
 	}
 	
 	@Bean
-	@ConfigurationProperties(prefix="spring.datasource.primary")
+	@ConfigurationProperties(prefix="spring.datasource.oauth")
 	public DataSource ouathDataSource(){return DataSourceBuilder.create().build();}
 	 
 	@Override
     public void configure(ResourceServerSecurityConfigurer resources)throws Exception{
-
         TokenStore tokenStore=new JdbcTokenStore(ouathDataSource());
         resources.resourceId("product_api").tokenStore(tokenStore);
-
     }
     @Override
 
     public void configure(HttpSecurity http) throws Exception{
         http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/**").access("#oauth2.hasScope('read')")
+                //.antMatchers(HttpMethod.GET, "/**").access("#oauth2.hasScope('read')")
+                .antMatchers(HttpMethod.GET,"/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/**").access("#oauth2.hasScope('write')")
                 .antMatchers(HttpMethod.PATCH, "/**").access("#oauth2.hasScope('write')")
                 .antMatchers(HttpMethod.PUT, "/**").access("#oauth2.hasScope('write')")
